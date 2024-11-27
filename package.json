@@ -22,5 +22,11 @@
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7",
     "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@fontsource/roboto": "^5.1.0",
+    "@mui/material": "^6.1.8"
   }
 }
