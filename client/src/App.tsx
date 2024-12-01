@@ -1,42 +1,52 @@
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import "./App.css";
 import { Outlet } from "react-router-dom";
-// import {
-//   ApolloClient,
-//   InMemoryCache,
-//   ApolloProvider,
-//   createHttpLink,
-// } from "@apollo/client";
-// import { setContext } from "@apollo/client/link/context";
-
-// Construct our main GraphQL API endpoint
-// const httpLink = createHttpLink({
-//   uri: "/graphql",
-// });
-
-// // Construct request middleware that will attach the JWT token to every request as an `authorization` header
-// const authLink = setContext((_, { headers }) => {
-//   // get the authentication token from local storage if it exists
-//   const token = localStorage.getItem("id_token");
-//   // return the headers to the context so httpLink can read them
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : "",
-//     },
-//   };
-// });
-
-// const client = new ApolloClient({
-//   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache(),
-// });
+import { useEffect, useMemo, useState } from "react";
+import Head from "./components/Head";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
+
+  const toggleDarkMode = () => {
+    localStorage.setItem("darkMode", (!darkMode).toString());
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    const mode = localStorage.getItem("darkMode");
+    if (mode === "true") {
+      setDarkMode(true);
+    }
+  });
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? "dark" : "light",
+          primary: {
+            main: darkMode ? "#228B22" : "#3f51b5",
+          },
+          secondary: {
+            main: "#f50057",
+          },
+        },
+        typography: {
+          fontFamily: "Roboto, sans-serif",
+          fontSize: 16,
+        },
+      }),
+    [darkMode]
+  );
+
   return (
-    // <ApolloProvider client={client}>
-    <Outlet />
-    // </ApolloProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Head darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <Outlet />
+    </ThemeProvider>
   );
 }
 
