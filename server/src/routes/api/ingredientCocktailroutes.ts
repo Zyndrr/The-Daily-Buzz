@@ -7,7 +7,7 @@ dotenv.config(); // Load environment variables from .env file
 const router = express.Router();
 
 // Configuration for the Ninja API
-const API_HOST = "cocktail-by-api-ninjas.p.rapidapi.com";
+const API_HOST = "api.api-ninjas.com";
 const API_KEY = process.env.RAPIDAPI_KEY; // Ensure your .env file has the RAPIDAPI_KEY variable
 
 // Middleware to validate query parameters
@@ -18,10 +18,10 @@ router.get("/search", async (req, res) => {
   if (!query || typeof query !== "string") {
     return res.status(400).json({ error: "The 'query' parameter is required and must be a string." });
   }
-  if (!type || (type !== "ingredient")) {
+  if (!type || (type !== "ingredient" && type !== "name")) {
     return res
       .status(400)
-      .json({ error: "The 'type' parameter is required and must be either 'name' or 'ingredient'." });
+      .json({ error: "The 'type' parameter is required and must be either 'ingredient' or 'name'." });
   }
 
   try {
@@ -29,8 +29,7 @@ router.get("/search", async (req, res) => {
     const response = await axios.get(`https://${API_HOST}/v1/cocktail`, {
       params: { [type]: query }, // Dynamically set the query type (name or ingredient)
       headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": API_HOST,
+        "X-Api-Key": API_KEY,
       },
     });
 

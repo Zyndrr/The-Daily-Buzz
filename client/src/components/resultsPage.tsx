@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-//import fetchCocktails from api stuff later
 
+// Define the cocktail interface
 interface Cocktail {
   name: string;
   ingredients: string;
@@ -30,6 +30,13 @@ const ResultsPage: React.FC = () => {
       .finally(() => setLoading(false));
   }, [searchParams]);
 
+  // Fetch cocktails based on the query type (name or ingredient)
+  const fetchCocktails = async (query: string, type: "name" | "ingredient") => {
+    const response = await fetch(`/api/cocktails/searchBy${type.charAt(0).toUpperCase() + type.slice(1)}/${query}`);
+    const data = await response.json();
+    return data;
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -46,6 +53,9 @@ const ResultsPage: React.FC = () => {
               <p>
                 <strong>Ingredients:</strong> {cocktail.ingredients}
               </p>
+              {/* <p>
+                <strong>Instructions:</strong> {cocktail.instructions}
+              </p> */}
             </li>
           ))}
         </ul>
