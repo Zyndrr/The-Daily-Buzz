@@ -1,5 +1,5 @@
 [
-    {"name": "Jack and Coke", "ingredients": ["Jack", "Coke"]},
-    {"name": "Malort", "ingredients": ["hellfire", "brimstone"]},
-    {"name": "Mohito", "ingredients": ["white rum", "mint", "lime juice", "simple syrup", "sparkling water", "ice"]}
+    {"_id": "1", "name": "Jack and Coke", "ingredients": ["Jack", "Coke"]},
+    {"_id": "2", "name": "Malort", "ingredients": ["hellfire", "brimstone"]},
+    {"_id": "3", "name": "Mohito", "ingredients": ["white rum", "mint", "lime juice", "simple syrup", "sparkling water", "ice"]}
 ]
