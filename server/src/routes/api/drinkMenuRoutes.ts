@@ -20,13 +20,13 @@ router.post("/:username/save", async (req, res) => {
     }
 
     // Add the cocktail to the user's drink menu
-    user.drinkMenu.push(drinks);
+    user.drinks.push(drinks);
     await user.save();
 
-    res.json({ message: "Cocktail saved successfully!", drinkMenu: user.drinkMenu });
+    return res.json({ message: "Cocktail saved successfully!", drinkMenu: user.drinks });
   } catch (error) {
     console.error("Error saving cocktail:", error);
-    res.status(500).json({ error: "An error occurred while saving the cocktail." });
+    return res.status(500).json({ error: "An error occurred while saving the cocktail." });
   }
 });
 
