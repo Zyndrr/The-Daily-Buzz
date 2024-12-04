@@ -1,21 +1,23 @@
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-import { Sequelize } from 'sequelize';
+// Wrap Mongoose around local connection to MongoDB
+//mongoose.connect(process.env.MONGO_URI);
+const MONGODB_URI = process.env.MONGODB_URI || '';
 
-const sequelize = process.env.DB_URL
-  ? new Sequelize(process.env.DB_URL)
-  : new Sequelize(
-      process.env.DB_NAME || '',
-      process.env.DB_USER || '',
-      process.env.DB_PASSWORD,
-      {
-        host: 'localhost',
-        dialect: 'postgres',
-        dialectOptions: {
-          decimalNumbers: true,
-        },
-      }
-    );
-
-export default sequelize;
+// Export connection
+//export default mongoose.connection;
+const db = async (): Promise<typeof mongoose.connection> => {
+    try {
+      await mongoose.connect(MONGODB_URI);
+      console.log('Database connected.');
+      return mongoose.connection;
+    } catch (error) {
+      console.error('Database connection error:', error);
+      throw new Error('Database connection failed.');
+    }
+  };
+  
+  export default db;
