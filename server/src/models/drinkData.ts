@@ -1,4 +1,4 @@
-import { Schema, model, Document, ObjectId } from 'mongoose';
+import { Schema, model, Document} from 'mongoose';
 
 interface IDrinks extends Document {
     name: string;
