@@ -1,4 +1,4 @@
-import Drink from "./drinkData";
-import User from "./user";
+import Drink from "./drinkData.js";
+import User from "./user.js";
 
 export { Drink, User };

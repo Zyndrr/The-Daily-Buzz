@@ -35,7 +35,7 @@ export default function Head(props: HeadProps) {
       }
     };
     getUserData();
-  });
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
