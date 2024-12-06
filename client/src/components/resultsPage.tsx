@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
 
-// Define the cocktail interface
 interface Cocktail {
   name: string;
   ingredients: string;
@@ -19,6 +19,8 @@ const ResultsPage: React.FC = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const query = searchParams.get("query") || "";
@@ -43,6 +45,40 @@ const ResultsPage: React.FC = () => {
     );
     const data = await response.json();
     return data;
+  };
+
+  // Handle saving drinks to the menu (API request)
+  const handleSaveToMenu = async (cocktail: Cocktail) => {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      alert("You must be logged in to save cocktails.");
+      return;
+    }
+// saves cocktails
+    const response = await fetch("/api/user/drinks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token,
+        drink: {
+          name: cocktail.name,
+          ingredients: cocktail.ingredients,
+        },
+      }),
+    });
+
+    if (response.ok) {
+      alert("Drink saved to your menu!");
+    } else {
+      alert("Failed to save the drink.");
+    }
+  };
+
+  const handleGoToMenu = () => {
+    // Navigate to MenuPage
+    navigate("/menu");
   };
 
   if (loading)
@@ -100,11 +136,27 @@ const ResultsPage: React.FC = () => {
                   }
                 />
               </ListItem>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleSaveToMenu(cocktail)}
+                sx={{ marginTop: "10px" }}
+              >
+                Save to Menu
+              </Button>
               <Divider component="li" />
             </React.Fragment>
           ))}
         </List>
       )}
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={handleGoToMenu}
+        sx={{ marginTop: "20px" }}
+      >
+        Go to Menu
+      </Button>
     </Box>
   );
 };
