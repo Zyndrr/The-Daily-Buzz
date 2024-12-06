@@ -54,7 +54,7 @@ const ResultsPage: React.FC = () => {
       alert("You must be logged in to save cocktails.");
       return;
     }
-// saves cocktails
+
     const response = await fetch("/api/user/drinks", {
       method: "POST",
       headers: {
@@ -136,14 +136,16 @@ const ResultsPage: React.FC = () => {
                   }
                 />
               </ListItem>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleSaveToMenu(cocktail)}
-                sx={{ marginTop: "10px" }}
-              >
-                Save to Menu
-              </Button>
+              {localStorage.getItem("jwt") && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleSaveToMenu(cocktail)}
+                  sx={{ marginTop: "10px" }}
+                >
+                  Save to Menu
+                </Button>
+              )}
               <Divider component="li" />
             </React.Fragment>
           ))}
