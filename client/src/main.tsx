@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import Login from "./components/login.js";
 import Home from "./components/Home.js";
 import SignUp from "./components/SignUp.js";
+import MenuPage from "./components/menu_page.js";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+      {
+        path: "/menu",
+        element: <MenuPage />,
+      }
     ],
   },
 ]);
