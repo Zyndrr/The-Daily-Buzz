@@ -1,66 +1,36 @@
-import {
-  CreationOptional,
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { Schema, model, Document, ObjectId } from "mongoose";
 import bcrypt from "bcrypt";
 
-export class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
-  declare id: CreationOptional<number>;
-  declare username: string;
-  declare password: string;
-  declare favoriteStocks: string;
+interface IUser extends Document {
+  username: string;
+  password: string;
+  menuName: string;
+  drinks: Array<ObjectId>;
+  isCorrectPassword(password: string): Promise<boolean>;
+}
 
-  // Here we create an Instance Method to work with the user's email address before saving it to the database
-  // async setEmailToLowerCase() {
-  //   this.email = await this.email.toLowerCase();
-  // }
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, bcrypt.genSaltSync(10));
+const userSchema = new Schema<IUser>({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  menuName: { type: String, required: true, default: "Default Menu" },
+  drinks: [{ type: Schema.Types.ObjectId, required: true, ref: "drink" }], //when intializing a new user we will also initialize an empty array for drinks.
+});
+
+userSchema.pre<IUser>("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
   }
 
-  async validatePassword(password: string) {
-    return await bcrypt.compare(password, this.password);
-  }
-}
-export function UserFactory(sequelize: Sequelize) {
-  User.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      favoriteStocks: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-    },
-    {
-      hooks: {
-        beforeCreate: async (newUserData) => {
-          await newUserData.hashPassword();
-        },
-      },
-      modelName: "users",
-      sequelize,
-    }
-  );
+  next();
+});
 
-  return User;
-}
+userSchema.methods.isCorrectPassword = async function (
+  password: string
+): Promise<boolean> {
+  return bcrypt.compare(password, this.password);
+};
+
+const User = model("User", userSchema);
+
+export default User;

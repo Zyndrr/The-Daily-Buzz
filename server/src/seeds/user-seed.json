@@ -1,0 +1,5 @@
+[
+    { "username": "JollyGuru", "password": "password", "menuName": "placeholder", "drinks": ["1", "2", "3"]},
+    { "username": "SunnyScribe", "password": "password", "menuName": "placeholder", "drinks": ["2", "3"]},
+    { "username": "RadiantComet", "password": "password", "menuName": "placeholder", "drinks": ["2"]}
+  ]

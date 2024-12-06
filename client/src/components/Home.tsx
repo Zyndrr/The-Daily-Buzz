@@ -11,7 +11,8 @@ export default function Home() {
             Welcome to The Daily Buzz
           </Typography>
           <Typography variant="h4" component="h4">
-            The Daily Buzz is a place where you can find cocktail recipes.
+            Cocktails aren’t just drinks, they’re experiences. Find yours at The
+            Daily Buzz!
           </Typography>
         </Grid2>
         <Grid2 size={6}>
