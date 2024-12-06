@@ -89,7 +89,7 @@ export default function Login() {
         return;
       }
       localStorage.setItem("jwt", token);
-      window.location.href = "/";
+      window.location.href = "/menu";
     } catch (error) {
       console.error("Error:", error);
     }
