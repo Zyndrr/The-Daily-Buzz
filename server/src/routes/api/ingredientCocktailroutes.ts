@@ -11,17 +11,18 @@ const API_HOST = "api.api-ninjas.com";
 const API_KEY = process.env.RAPIDAPI_KEY; // Ensure your .env file has the RAPIDAPI_KEY variable
 
 // Middleware to validate query parameters
-router.get("/search", async (req, res) => {
+router.get("/search-ingredients", async (req, res) => {
+  console.log('IM HERE')
   const { query, type } = req.query;
 
   // Validate query parameters
   if (!query || typeof query !== "string") {
     return res.status(400).json({ error: "The 'query' parameter is required and must be a string." });
   }
-  if (!type || (type !== "ingredient" && type !== "name")) {
+  if (!type || (type !== "ingredients" && type !== "name")) {
     return res
       .status(400)
-      .json({ error: "The 'type' parameter is required and must be either 'ingredient' or 'name'." });
+      .json({ error: "The 'type' parameter is required and must be either 'ingredients' or 'name'." });
   }
 
   try {

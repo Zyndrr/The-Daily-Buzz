@@ -8,7 +8,7 @@ const SearchByIngredients: React.FC = () => {
 
   const handleSearch = () => {
     if (ingredient.trim() === "") return;
-    navigate(`/results?type=ingredient&query=${encodeURIComponent(ingredient)}`);
+    navigate(`/results?type=ingredients&query=${encodeURIComponent(ingredient)}`);
   };
 
   return (

@@ -14,7 +14,7 @@ interface Cocktail {
   instructions: string;
 }
 
-const ResultsPage: React.FC = () => {
+const ResultsPage = () => {
   const [searchParams] = useSearchParams();
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -24,7 +24,7 @@ const ResultsPage: React.FC = () => {
 
   useEffect(() => {
     const query = searchParams.get("query") || "";
-    const type = searchParams.get("type") as "name" | "ingredient";
+    const type = searchParams.get("type") as "name" | "ingredients";
 
     if (!query || !type) return;
 
@@ -39,9 +39,9 @@ const ResultsPage: React.FC = () => {
   }, [searchParams]);
 
   // Fetch cocktails based on the query type (name or ingredient)
-  const fetchCocktails = async (query: string, type: "name" | "ingredient") => {
+  const fetchCocktails = async (query: string, type: "name" | "ingredients") => {
     const response = await fetch(
-      `/api/cocktails/searchBy${type.charAt(0).toUpperCase() + type.slice(1)}/${query}`
+      `/api/search-${type}?query=${encodeURIComponent(query)}&type=${type}`
     );
     const data = await response.json();
     return data;

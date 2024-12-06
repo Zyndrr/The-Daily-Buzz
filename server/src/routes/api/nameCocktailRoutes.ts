@@ -11,7 +11,7 @@ const API_HOST = "api.api-ninjas.com";
 const API_KEY = process.env.RAPIDAPI_KEY; // Ensure your .env file has the RAPIDAPI_KEY variable
 
 // Middleware to validate query parameters
-router.get("/search", async (req, res) => {
+router.get("/search-name", async (req, res) => {
   const { query, type } = req.query;
 
   // Validate query parameters
