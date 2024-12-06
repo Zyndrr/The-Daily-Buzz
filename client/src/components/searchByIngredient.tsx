@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TextField, Button, Box, Typography } from "@mui/material";
 
 const SearchByIngredients: React.FC = () => {
   const [ingredient, setIngredient] = useState<string>("");
@@ -11,23 +12,28 @@ const SearchByIngredients: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Search by Ingredients</h2>
-      <input
-        type="text"
-        placeholder="Enter your ingredients (e.g., vodka, tomato juice, tobasco. etc...)"
+    <Box sx={{ padding: 2 }}>
+      <Typography variant="h4" gutterBottom>
+        Search by Ingredients
+      </Typography>
+      <TextField
+        label="Enter ingredients"
+        variant="outlined"
+        fullWidth
         value={ingredient}
         onChange={(e) => setIngredient(e.target.value)}
-        style={{
-          marginTop: "10px",
-          padding: "10px",
-          width: "300px",
-        }}
+        sx={{ marginBottom: 2 }}
+        placeholder="e.g., vodka, tomato juice, tobasco"
       />
-      <button onClick={handleSearch} style={{ marginLeft: "10px", padding: "10px" }}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSearch}
+        sx={{ width: "100%", padding: "10px" }}
+      >
         Search
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 

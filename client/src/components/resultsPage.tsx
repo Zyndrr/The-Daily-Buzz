@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Define the cocktail interface
 interface Cocktail {
@@ -32,35 +38,74 @@ const ResultsPage: React.FC = () => {
 
   // Fetch cocktails based on the query type (name or ingredient)
   const fetchCocktails = async (query: string, type: "name" | "ingredient") => {
-    const response = await fetch(`/api/cocktails/searchBy${type.charAt(0).toUpperCase() + type.slice(1)}/${query}`);
+    const response = await fetch(
+      `/api/cocktails/searchBy${type.charAt(0).toUpperCase() + type.slice(1)}/${query}`
+    );
     const data = await response.json();
     return data;
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          color: "red",
+        }}
+      >
+        <p>Error: {error}</p>
+      </Box>
+    );
 
   return (
-    <div style={{ padding: "20px" }}>
+    <Box
+      sx={{
+        width: "100%",
+        padding: "20px",
+      }}
+    >
       <h1>Search Results</h1>
       {cocktails.length === 0 ? (
         <p>No cocktails found. Try a different search!</p>
       ) : (
-        <ul>
+        <List>
           {cocktails.map((cocktail, index) => (
-            <li key={index} style={{ marginBottom: "20px" }}>
-              <h2>{cocktail.name}</h2>
-              <p>
-                <strong>Ingredients:</strong> {cocktail.ingredients}
-              </p>
-              {/* <p>
-                <strong>Instructions:</strong> {cocktail.instructions}
-              </p> */}
-            </li>
+            <React.Fragment key={index}>
+              <ListItem alignItems="flex-start">
+                <ListItemText
+                  primary={cocktail.name}
+                  secondary={
+                    <>
+                      <strong>Ingredients:</strong> {cocktail.ingredients}
+                      <br />
+                      <strong>Instructions:</strong> {cocktail.instructions}
+                    </>
+                  }
+                />
+              </ListItem>
+              <Divider component="li" />
+            </React.Fragment>
           ))}
-        </ul>
+        </List>
       )}
-    </div>
+    </Box>
   );
 };
 
