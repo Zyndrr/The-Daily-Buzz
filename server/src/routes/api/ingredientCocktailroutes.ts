@@ -12,7 +12,6 @@ const API_KEY = process.env.RAPIDAPI_KEY; // Ensure your .env file has the RAPID
 
 // Middleware to validate query parameters
 router.get("/search-ingredients", async (req, res) => {
-  console.log('IM HERE')
   const { query, type } = req.query;
 
   // Validate query parameters

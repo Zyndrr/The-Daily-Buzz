@@ -93,9 +93,9 @@ export default function MenuPage() {
                     border: 10,
                 }}
             >
-                <Button variant="contained" onClick={() => deleteFullMenuButton()}>Rename menu</Button>
+                <Button variant="contained" onClick={() => deleteFullMenuButton()}>Delete All Drinks</Button>
                 <h2>{data.menuName}</h2>
-                <Button onClick={() => setOpen(!open)}>Open modal</Button>
+                <Button onClick={() => setOpen(!open)}>Rename Menu</Button>
                 <Modal open={open} onClose={submitMenuName} closeAfterTransition>
                         <Box sx={modalStyle}>
                             <Typography>Enter your new menu name</Typography>
