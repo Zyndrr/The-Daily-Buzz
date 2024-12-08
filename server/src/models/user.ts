@@ -13,7 +13,7 @@ const userSchema = new Schema<IUser>({
   username: { type: String, required: true },
   password: { type: String, required: true },
   menuName: { type: String, required: true, default: "Default Menu" },
-  drinks: [{ type: Schema.Types.ObjectId, required: true, ref: "drink" }], //when intializing a new user we will also initialize an empty array for drinks.
+  drinks: [{ type: Schema.Types.ObjectId, required: true, ref: "Drink" }], //when intializing a new user we will also initialize an empty array for drinks.
 });
 
 userSchema.pre<IUser>("save", async function (next) {

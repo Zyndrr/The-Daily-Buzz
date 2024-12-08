@@ -85,7 +85,7 @@ export default function SignUp() {
       });
       const token = response.data.token;
       localStorage.setItem("jwt", token);
-      window.location.href = "/";
+      window.location.href = "/menu";
     } catch (error) {
       console.error("Error:", error);
     }

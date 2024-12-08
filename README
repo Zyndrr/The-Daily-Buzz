@@ -1,0 +1,39 @@
+# The Daily Buzz
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+## Description
+
+This is simple application that once logged in you can search for cocktails based on the ingredients you have on hand or by cocktail name. You can then create a menu of your cocktails.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [How to Contribute](#how-to-contribute)
+- [License](#license)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation
+
+npm install
+
+## Usage
+
+npm start
+
+## How to Contribute
+
+Anyone can contribute, please submit a PR
+
+## License
+
+MIT
+
+## Tests
+
+## Questions
+
+- GitHub Username: [Zyndrr, pboyer306, DevinSharp-Eflat](https://github.com/Zyndrr, pboyer306, DevinSharp-Eflat)
+- Email: [erin.d.mckanna@gmail.com](mailto:erin.d.mckanna@gmail.com)

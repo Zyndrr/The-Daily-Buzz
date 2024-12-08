@@ -1,9 +1,13 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
-import Login from "./components/login.js";
+import Login from "./components/Login.js";
 import Home from "./components/Home.js";
 import SignUp from "./components/SignUp.js";
+import MenuPage from "./components/menu_page.js";
+import SearchByName from "./components/searchByName.js";
+import SearchByIngredients from "./components/searchByIngredient.js";
+import ResultsPage from "./components/resultsPage.js";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,22 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/menu",
+        element: <MenuPage />,
+      },
+      {
+        path: "search-name",
+        element: <SearchByName/>
+      },
+      {
+        path: "search-ingredient",
+        element: <SearchByIngredients/>
+      },
+      {
+        path: "results",
+        element: <ResultsPage/>
       },
     ],
   },

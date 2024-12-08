@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TextField, Button, Box, Typography } from "@mui/material";
 
 const SearchByName: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -11,23 +12,28 @@ const SearchByName: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Search by Cocktail Name</h2>
-      <input
-        type="text"
-        placeholder="Enter cocktail name"
+    <Box sx={{ padding: 2 }}>
+      <Typography variant="h4" gutterBottom>
+        Search by Cocktail Name
+      </Typography>
+      <TextField
+        label="Enter cocktail name"
+        variant="outlined"
+        fullWidth
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={{
-          marginTop: "10px",
-          padding: "10px",
-          width: "300px",
-        }}
+        sx={{ marginBottom: 2 }}
+        placeholder="e.g., Margarita, Martini, Mojito"
       />
-      <button onClick={handleSearch} style={{ marginLeft: "10px", padding: "10px" }}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSearch}
+        sx={{ width: "100%", padding: "10px" }}
+      >
         Search
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 

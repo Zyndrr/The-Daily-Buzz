@@ -1,8 +1,26 @@
 import * as React from "react";
 import cocktails from "../assets/COCKTAILS-2.jpg";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Button, Grid2, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState({ username: "" });
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const jwt = localStorage.getItem("jwt");
+        const response = await axios.post(`/api/user/verify`, { token: jwt });
+        setUserDetails(response.data);
+      } catch {
+        return;
+      }
+    };
+    getUserData();
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid2 container spacing={3}>
@@ -14,6 +32,7 @@ export default function Home() {
             Cocktails aren’t just drinks, they’re experiences. Find yours at The
             Daily Buzz!
           </Typography>
+          {userDetails?.username && <Button variant="outlined" onClick={()=>navigate('/menu')}>To Your Menu</Button>}
         </Grid2>
         <Grid2 size={6}>
           <img

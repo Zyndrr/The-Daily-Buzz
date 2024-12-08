@@ -36,6 +36,11 @@ export default function Head(props: HeadProps) {
     };
     getUserData();
   }, []);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("jwt");
+    window.location.href = "/";
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -70,7 +75,11 @@ export default function Head(props: HeadProps) {
               </FormGroup>
             </Grid2>
             <Grid2 size={2}>
-              {!userDetails.username && (
+              {userDetails.username ? (
+                <Button onClick={logoutHandler} color="inherit">
+                  Logout
+                </Button>
+              ) : (
                 <Button href="/login" color="inherit">
                   Login
                 </Button>
